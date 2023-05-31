@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class CheckLevel : MonoBehaviour
+public class CurrentLevelSetter : MonoBehaviour
 {
     Transform LvTxt;
     Transform Text;

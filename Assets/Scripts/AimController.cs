@@ -7,13 +7,15 @@ public class AimController : MonoBehaviour
     private float smoothing;
     [SerializeField]
     private float lookDistance;
+
     Vector3 offset;
+    
     private void Start()
     {
         offset = transform.position - target.position;
     }
 
-    void Update()
+    private void Update()
     {
         #region MoveCamera
         Vector3 mousePos = gameObject.GetComponent<Camera>().ScreenToViewportPoint(Input.mousePosition);
@@ -24,7 +26,7 @@ public class AimController : MonoBehaviour
     }
 
     //Calculates the angle between two vector2 points in degrees.
-    float AngleBetweenTwoPoints(Vector2 a, Vector2 b)
+    private float AngleBetweenTwoPoints(Vector2 a, Vector2 b)
     {
         return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
