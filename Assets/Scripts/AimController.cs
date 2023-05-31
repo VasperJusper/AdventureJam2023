@@ -2,26 +2,24 @@ using UnityEngine;
 
 public class AimController : MonoBehaviour
 {
-    Camera MainCam;
-
-    void Start()
+    public Transform target;
+    [SerializeField]
+    private float smoothing;
+    [SerializeField]
+    private float lookDistance;
+    Vector3 offset;
+    private void Start()
     {
-        MainCam = Camera.main;
+        offset = transform.position - target.position;
     }
 
     void Update()
     {
-        Vector3 mousePosition = MainCam.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 mouseDirection = (mousePosition - transform.position);
-
-        #region Rotate
-        float angle = AngleBetweenTwoPoints(transform.position, mousePosition);
-        transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, angle - 90));
-        #endregion
-
-        #region CameraMover
-        Vector2 CamPos = (Vector2)transform.position + (mouseDirection / 3.5f);
-        MainCam.transform.position = new Vector3(CamPos.x, CamPos.y, -10);
+        #region MoveCamera
+        Vector3 mousePos = gameObject.GetComponent<Camera>().ScreenToViewportPoint(Input.mousePosition);
+        Vector3 mouseOffset = new Vector3((Mathf.Clamp(mousePos.x, 0, 1) - 0.5f) * lookDistance, (Mathf.Clamp(mousePos.y, 0, 1) - 0.5f) * lookDistance);
+        Vector3 targetCamPos = target.position + offset + mouseOffset;
+        transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
         #endregion
     }
 

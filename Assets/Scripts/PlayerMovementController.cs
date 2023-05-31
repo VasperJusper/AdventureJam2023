@@ -116,6 +116,12 @@ public class PlayerMovementController : MonoBehaviour
         }
         #endregion
 
+        #region Rotation
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 perpendicular = Vector3.Cross(transform.position - mousePos, Vector3.forward);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, perpendicular);
+        #endregion
+
         #region Dash
         if (Input.GetKeyDown(KeyCode.Space))
             Dash();
