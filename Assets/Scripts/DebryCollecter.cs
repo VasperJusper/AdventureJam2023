@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using static UnityEngine.UI.Image;
-using UnityEngine.UIElements;
 
 public class DebryCollecter : MonoBehaviour
 {
-    Transform Canvas;
+    [SerializeField] Transform Canvas;
 
     int Debris = 0;
     TextMeshProUGUI DebrisTxt;
@@ -18,7 +14,8 @@ public class DebryCollecter : MonoBehaviour
     {
         Debris = PlayerPrefs.GetInt("Debris");
 
-        Canvas = GameObject.Find("Canvas").transform;
+        if(Canvas is null)
+            Canvas = GameObject.Find("Canvas").transform;
 
         DebrisTxt = Canvas.Find("Menu").Find("GeneralMenuBackground").Find("DebrisImg").Find("Text").GetComponent<TextMeshProUGUI>();
         WriteDebryCount();
@@ -39,7 +36,7 @@ public class DebryCollecter : MonoBehaviour
             Debris += _count;
             WriteDebryCount();
             Destroy(collision.gameObject);
-            GameObject newtxtobj = Instantiate(CollectingTxt, new Vector3(1100, 0, 0), Quaternion.identity, Canvas);
+            GameObject newtxtobj = Instantiate(CollectingTxt, Canvas);
             newtxtobj.GetComponent<TextMeshProUGUI>().text = "+" + _count + " Debris";
         }
     }
