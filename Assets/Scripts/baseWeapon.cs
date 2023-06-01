@@ -12,13 +12,15 @@ public class baseWeapon : MonoBehaviour
     public GameObject bulletPrefab;
 
     public float currentAmmo, reloadTime, nextFire, fireRate;
+    private bool reloading;
 
     void Start()
     {
+        reloading = false;
+
         currentAmmo = weaponSO.ammo;
         reloadTime = weaponSO.reloadTime;
         fireRate = weaponSO.fireRate;
-
     }
 
     private void Awake()
@@ -29,25 +31,36 @@ public class baseWeapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0) & nextFire < Time.time & currentAmmo > 0)
+        if (Input.GetKey(KeyCode.Mouse0) & nextFire < Time.time & currentAmmo > 0 & !reloading)
         {
             nextFire = Time.time + fireRate;
+
             var bulletPrefab1 = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.rotation);
             bulletPrefab1.GetComponent<Rigidbody2D>().velocity = muzzle.right * weaponSO.bulletSpeed;
+
             currentAmmo -= 1f;
+
             magSizeText.text = weaponSO.magSize.ToString();
             currentAmmoText.text = currentAmmo.ToString();
         }
 
         if (currentAmmo < 1f || Input.GetKeyDown(KeyCode.R))
         {
+            currentAmmoText.text = "Relaoding";
             StartCoroutine(Reload());
         }
+
     }
 
     IEnumerator Reload()
     {
+        reloading = true;
+
         yield return new WaitForSeconds(weaponSO.reloadTime);
+
         currentAmmo = weaponSO.magSize;
+        currentAmmoText.text = weaponSO.ammo.ToString();
+
+        reloading = false;
     }
 }
