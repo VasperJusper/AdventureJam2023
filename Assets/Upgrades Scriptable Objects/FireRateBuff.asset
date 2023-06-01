@@ -9,16 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b8859e33b468d84bb97e8518a871a21, type: 3}
-  m_Name: Rifle
+  m_Script: {fileID: 11500000, guid: 4e4ac7669ce5bdb47a41c9a4f29507ca, type: 3}
+  m_Name: FireRateBuff
   m_EditorClassIdentifier: 
-  weaponName: Automatic Rifle
-  description: 30 round mag
-  magSize: 30
-  ammo: 30
-  range: 10
-  damage: 10
-  reloadTime: 1.7
-  fireRate: 0.1
-  bulletSpeed: 45
-  weapon: {fileID: 0}
+  upgradeName: Greater Fire Rate
+  description: Addes more fire rate to the gun
+  amount: 0.05

@@ -11,7 +11,7 @@ public class baseWeapon : MonoBehaviour
     public weaponSO weaponSO;
     public GameObject bulletPrefab;
 
-    private float currentAmmo, reloadTime, nextFire, fireRate;
+    public float currentAmmo, reloadTime, nextFire, fireRate;
 
     void Start()
     {
