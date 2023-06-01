@@ -5,12 +5,17 @@ using TMPro;
 
 public class baseWeapon : MonoBehaviour
 {
+    [Header("References")]
     public Transform muzzle;
-
-    public TMP_Text currentAmmoText, magSizeText;
-    public weaponSO weaponSO;
     public GameObject bulletPrefab;
 
+    [Header("UI")]
+    public TMP_Text currentAmmoText, magSizeText;
+
+    [Header("Data")]
+    public weaponSO weaponSO;
+
+    [Header("Data values")]
     public float currentAmmo, reloadTime, nextFire, fireRate;
     private bool reloading;
 
@@ -31,10 +36,12 @@ public class baseWeapon : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0) & nextFire < Time.time & currentAmmo > 0 & !reloading)
-        {
-            nextFire = Time.time + fireRate;
+        nextFire += Time.deltaTime;
 
+        if (Input.GetKey(KeyCode.Mouse0) && nextFire > fireRate && currentAmmo > 0 && !reloading)
+        {
+            nextFire = 0;
+            Debug.Log("bulletPrefab1" );
             var bulletPrefab1 = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.rotation);
             bulletPrefab1.GetComponent<Rigidbody2D>().velocity = muzzle.right * weaponSO.bulletSpeed;
 
@@ -44,12 +51,11 @@ public class baseWeapon : MonoBehaviour
             currentAmmoText.text = currentAmmo.ToString();
         }
 
-        if (currentAmmo < 1f || Input.GetKeyDown(KeyCode.R))
+        if ((currentAmmo < 1f || Input.GetKeyDown(KeyCode.R)) && !reloading)
         {
-            currentAmmoText.text = "Relaoding";
+            currentAmmoText.text = "Reloading";
             StartCoroutine(Reload());
         }
-
     }
 
     IEnumerator Reload()
