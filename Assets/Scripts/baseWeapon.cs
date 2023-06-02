@@ -69,4 +69,9 @@ public class baseWeapon : MonoBehaviour
 
         reloading = false;
     }
+
+    public void IncreaseFireRate()
+    {
+        fireRate -= 0.02f;
+    }
 }
