@@ -41,7 +41,6 @@ public class baseWeapon : MonoBehaviour
         if (Input.GetKey(KeyCode.Mouse0) && nextFire > fireRate && currentAmmo > 0 && !reloading)
         {
             nextFire = 0;
-            Debug.Log("bulletPrefab1" );
             var bulletPrefab1 = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.rotation);
             bulletPrefab1.GetComponent<Rigidbody2D>().velocity = muzzle.right * weaponSO.bulletSpeed;
 
