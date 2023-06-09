@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
-
 public class DebryCollecter : MonoBehaviour
 {
     [SerializeField] Transform Canvas;
 
     int Debris = 0;
     TextMeshProUGUI DebrisTxt;
+
+    public TMP_Text playerLevel;
+    private float xp;
+    private float level;
 
     GameObject CollectingTxt;
 
@@ -38,6 +41,11 @@ public class DebryCollecter : MonoBehaviour
             Destroy(collision.gameObject);
             GameObject newtxtobj = Instantiate(CollectingTxt, Canvas);
             newtxtobj.GetComponent<TextMeshProUGUI>().text = "+" + _count + " Debris";
+
+            xp = Debris;
+            level = xp / 10f;
+
+            playerLevel.text = Mathf.Round(level).ToString();
         }
     }
 }
