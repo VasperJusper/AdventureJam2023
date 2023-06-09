@@ -8,7 +8,7 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         else
