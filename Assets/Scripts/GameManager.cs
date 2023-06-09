@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -110,6 +111,13 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         updateGameState(GameState.Playing);
+        Debug.Log("Game Started!");
+    }
+
+    public void ReStartGame()
+    {
+        updateGameState(GameState.StartMenu);
+        SceneManager.LoadScene(0);
         Debug.Log("Game Started!");
     }
 

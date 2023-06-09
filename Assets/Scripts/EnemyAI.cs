@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
+    private const int distanceAttack = 45;
     private Rigidbody2D rb;
     public GameObject target;
 
@@ -34,8 +35,8 @@ public class EnemyAI : MonoBehaviour
 
             yield return new WaitForSeconds(2);
             float distance = Vector2.Distance(muzzle.position, target.transform.position);
-
-            if (distance < 10)
+            Debug.Log(name + " " + distance);
+            if (distance < distanceAttack)
             {
                 Vector3 direction = target.transform.position - muzzle.position;
                 float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg) * Mathf.PI / 180;
